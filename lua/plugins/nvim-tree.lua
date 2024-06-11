@@ -14,6 +14,9 @@ return {
         },
       }
     },
+    filters = {
+      git_ignored = false
+    },
     view = {
       preserve_window_proportions = true
     }

@@ -119,5 +119,23 @@ keymap.set("n", '<leader>dh', '<cmd>Telescope dap commands<cr>')
 keymap.set("n", '<leader>de', function() require('telescope.builtin').diagnostics({default_text=":E:"}) end)
 
 -- Terminal
-keymap.set("n", "<leader>`", ":5split | :term<CR>")
+local useropts = {
+  term = {
+    id = -1,
+    rows = 10,
+    show = true,
+  }
+}
+local function term_toggle()
+  if useropts.term.show then
+    vim.cmd(":"..useropts.term.rows.."split | :term")
+    useropts.term.id = vim.api.nvim_get_current_win()
+  else
+    vim.api.nvim_win_close(useropts.term.id, false)
+    useropts.term.id = -1
+  end
+  useropts.term.show = not useropts.term.show
+end
+keymap.set("n", "<leader>`", function() term_toggle() end)
+
 

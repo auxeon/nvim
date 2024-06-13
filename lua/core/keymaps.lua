@@ -127,6 +127,10 @@ local useropts = {
   }
 }
 local function term_toggle()
+  if not vim.api.nvim_win_is_valid(useropts.term.id) then
+    useropts.term.id = -1
+    useropts.term.show = true
+  end
   if useropts.term.show then
     vim.cmd(":"..useropts.term.rows.."split | :term")
     useropts.term.id = vim.api.nvim_get_current_win()

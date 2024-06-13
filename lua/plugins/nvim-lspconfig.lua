@@ -68,8 +68,14 @@ return {
       },
     }
 
+    -- C/C++ clangd settings 
     lspconfig.clangd.setup {
       cmd = {"clangd", "--enable-config"}
+    }
+
+    -- python settings
+    lspconfig.pyright.setup {
+      cmd = {"pyright-langserver", "--stdio"}
     }
 
     -- Globally configure all LSP floating preview popups (like hover, signature help, etc)

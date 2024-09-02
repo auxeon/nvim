@@ -69,9 +69,21 @@ return {
     }
 
     -- C/C++ clangd settings 
-    lspconfig.clangd.setup {
-      cmd = {"clangd", "--enable-config"}
-    }
+    --    lspconfig.clangd.setup {
+    --      cmd = {
+    --        "clangd",
+    --        "--enable-config",
+    --        "--clang-tidy",
+    --        "--log=verbose",
+    --      },
+    --      filetypes = { "c", "cpp" },
+    --      init_options = {
+    --        clangdFileStatus = true
+    --      },
+    --      settings = {
+    --        clangd = {}
+    --      },
+    --  }
 
     -- python settings
     lspconfig.pyright.setup {

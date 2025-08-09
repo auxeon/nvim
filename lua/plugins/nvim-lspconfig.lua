@@ -37,7 +37,9 @@ return {
         'clangd',
         'pyright',
         'rust_analyzer',
-      }
+      },
+      automatic_installation = true,
+      automatic_enable = true,
     })
 
     local lspconfig = require('lspconfig')
@@ -47,14 +49,14 @@ return {
     end
 
     -- Call setup on each LSP server
-    require('mason-lspconfig').setup_handlers({
-      function(server_name)
-        lspconfig[server_name].setup({
-          on_attach = lsp_attach,
-          capabilities = lsp_capabilities,
-        })
-      end
-    })
+    -- require('mason-lspconfig').setup_handlers({
+    --   function(server_name)
+    --     lspconfig[server_name].setup({
+    --       on_attach = lsp_attach,
+    --       capabilities = lsp_capabilities,
+    --     })
+    --   end
+    -- })
 
     -- Lua LSP settings
     lspconfig.lua_ls.setup {

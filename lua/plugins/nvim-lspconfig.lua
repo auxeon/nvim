@@ -43,6 +43,7 @@ return {
     })
 
     local lspconfig = require('lspconfig')
+    local util = require('lspconfig.util')
     local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
     local lsp_attach = function(client, bufnr)
       -- Create your keybindings here...
@@ -71,21 +72,26 @@ return {
     }
 
     -- C/C++ clangd settings 
-    --    lspconfig.clangd.setup {
-    --      cmd = {
-    --        "clangd",
-    --        "--enable-config",
-    --        "--clang-tidy",
-    --        "--log=verbose",
-    --      },
-    --      filetypes = { "c", "cpp" },
-    --      init_options = {
-    --        clangdFileStatus = true
-    --      },
-    --      settings = {
-    --        clangd = {}
-    --      },
-    --  }
+    lspconfig.clangd.setup {
+      cmd = {
+        "clangd",
+        "--enable-config",
+        "--clang-tidy",
+        "--log=verbose",
+      },
+      filetypes = { 'c', 'cpp', 'h', 'hpp', 'objc', 'objcpp', 'cuda' },
+      init_options = {
+        clangdFileStatus = true
+      },
+      settings = {
+        clangd = {}
+      },
+      root_dir = util.root_pattern(".clangd", ".git", "compile_commands.json"),
+      on_new_config = function(config, root)
+        config.cmd_cwd = root
+        vim.notify("[clangd] on_new_config called for root: " .. config.cmd_cwd)
+      end,
+    }
 
     -- python settings
     lspconfig.pyright.setup {

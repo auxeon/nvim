@@ -122,7 +122,7 @@ keymap.set("n", '<leader>de', function() require('telescope.builtin').diagnostic
 local useropts = {
   term = {
     id = -1,
-    rows = 10,
+    rows = 12,
     show = true,
   }
 }

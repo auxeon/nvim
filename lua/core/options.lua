@@ -71,12 +71,13 @@ vim.api.nvim_create_autocmd({"VimEnter"},{
   pattern = {"*"},
   callback = function()
     vim.cmd(":NvimTreeFocus");
+    vim.cmd("wincmd p");
   end
 })
 
-vim.api.nvim_create_autocmd({"VimLeave"},{
+vim.api.nvim_create_autocmd({"VimLeavePre"},{
   pattern = {"*"},
   callback = function()
-      vim.cmd(":mksession ~/.last")
+      vim.cmd(":mksession! ~/.nvim/last.session")
   end
 })

@@ -6,7 +6,7 @@ local keymap = vim.keymap
 -- General keymaps
 keymap.set("i", "jk", "<ESC>") -- exit insert mode with jk 
 keymap.set("i", "ii", "<ESC>") -- exit insert mode with ii
-keymap.set("n", "<leader>qs", ":mksession! ~/.last | :qa!<CR>") -- save and quit all 
+keymap.set("n", "<leader>qs", ":mksession! ~/.nvim/last.session | :qa!<CR>") -- save and quit all 
 keymap.set("n", "<leader>wq", ":wq<CR>") -- save and quit
 keymap.set("n", "<leader>qq", ":q!<CR>") -- quit without saving
 keymap.set("n", "<leader>ww", ":w<CR>") -- save

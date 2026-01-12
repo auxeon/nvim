@@ -39,7 +39,7 @@ return {
         'rust_analyzer',
       },
       automatic_installation = true,
-      automatic_enable = true,
+      -- automatic_enable = true,
     })
 
     local lspconfig = require('lspconfig')
@@ -84,7 +84,11 @@ return {
         clangdFileStatus = true
       },
       settings = {
-        clangd = {}
+        clangd = {
+          fallbackFlags = {
+            cpp = {"-std=c++20"},
+          }
+        }
       },
       root_dir = util.root_pattern(".clangd", ".git", "compile_commands.json"),
       on_new_config = function(config, root)
@@ -94,10 +98,9 @@ return {
     }
 
     -- python settings
-    lspconfig.pyright.setup {
-      cmd = {"pyright-langserver", "--stdio"}
-    }
-
+    -- lspconfig.pyright.setup {
+    -- cmd = { "pyright-langserver", "--stdio" },
+    -- }
     -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
     local open_floating_preview = vim.lsp.util.open_floating_preview
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)

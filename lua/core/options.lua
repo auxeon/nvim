@@ -78,6 +78,8 @@ vim.api.nvim_create_autocmd({"VimEnter"},{
 vim.api.nvim_create_autocmd({"VimLeavePre"},{
   pattern = {"*"},
   callback = function()
-      vim.cmd(":mksession! ~/.nvim/last.session")
+      local dir = vim.fn.expand("~/.nvim");
+      vim.fn.mkdir(dir, "p");
+      vim.cmd(":mksession! ~/.nvim/last.session");
   end
 })

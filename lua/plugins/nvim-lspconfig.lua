@@ -44,7 +44,7 @@ return {
 
     local lspconfig = require('lspconfig')
     local util = require('lspconfig.util')
-    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+--    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
     local lsp_attach = function(client, bufnr)
       -- Create your keybindings here...
     end

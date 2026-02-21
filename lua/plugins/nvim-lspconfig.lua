@@ -24,19 +24,20 @@ return {
     require('mason-lspconfig').setup({
       -- Install these LSPs automatically
       ensure_installed = {
-        -- 'bashls', -- requires npm to be installed
-        -- 'cssls', -- requires npm to be installed
-        -- 'html', -- requires npm to be installed
+        'bashls', -- requires npm to be installed
+        'cssls', -- requires npm to be installed
+        'html', -- requires npm to be installed
         'lua_ls',
-        -- 'jsonls', -- requires npm to be installed
+        'jsonls', -- requires npm to be installed
         'lemminx',
         'marksman',
         'quick_lint_js',
-        -- 'tsserver', -- requires npm to be installed
-        -- 'yamlls', -- requires npm to be installed
+        'ts_ls', -- requires npm to be installed
+        'yamlls', -- requires npm to be installed
         'clangd',
         'pyright',
         'rust_analyzer',
+        'gopls', -- requires go to be installed 
       },
       automatic_installation = true,
       -- automatic_enable = true,
@@ -58,6 +59,13 @@ return {
     --     })
     --   end
     -- })
+  
+    -- js and ts lsp
+    lspconfig.ts_ls.setup {
+      settings = {
+
+      }
+    }
 
     -- Lua LSP settings
     lspconfig.lua_ls.setup {

@@ -20,7 +20,6 @@ return {
     {'folke/neodev.nvim' },
   },
   config = function ()
-    require('mason').setup()
     require('mason-lspconfig').setup({
       -- Install these LSPs automatically
       ensure_installed = {

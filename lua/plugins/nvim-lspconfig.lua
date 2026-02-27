@@ -17,9 +17,13 @@ return {
 
     -- Additional lua configuration, makes nvim stuff amazing!
     -- https://github.com/folke/neodev.nvim
-    {'folke/neodev.nvim' },
+    { 'folke/neodev.nvim' },
   },
-  config = function ()
+
+  config = function()
+    -- require('neodev').setup({})
+    require('mason').setup()
+
     require('mason-lspconfig').setup({
       -- Install these LSPs automatically
       ensure_installed = {
@@ -36,50 +40,91 @@ return {
         'clangd',
         'pyright',
         'rust_analyzer',
-        'gopls', -- requires go to be installed 
+        'gopls', -- requires go to be installed
       },
       automatic_installation = true,
-      -- automatic_enable = true,
     })
 
     local lspconfig = require('lspconfig')
     local util = require('lspconfig.util')
---    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
     local lsp_attach = function(client, bufnr)
       -- Create your keybindings here...
     end
 
-    -- Call setup on each LSP server
-    -- require('mason-lspconfig').setup_handlers({
-    --   function(server_name)
-    --     lspconfig[server_name].setup({
-    --       on_attach = lsp_attach,
-    --       capabilities = lsp_capabilities,
-    --     })
-    --   end
-    -- })
-  
-    -- js and ts lsp
-    lspconfig.ts_ls.setup {
-      settings = {
+    -- Override bashls
+    lspconfig.bashls.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
 
-      }
-    }
+    -- Override bashls
+    lspconfig.bashls.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
 
-    -- Lua LSP settings
-    lspconfig.lua_ls.setup {
+    -- Override csslss
+    lspconfig.cssls.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
+
+    -- Override html
+    lspconfig.html.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
+
+    -- Override lua_ls
+    lspconfig.lua_ls.setup({
+      on_attach = lsp_attach,
       settings = {
         Lua = {
           diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'},
+            globals = { 'vim' },
           },
         },
       },
-    }
+    })
 
-    -- C/C++ clangd settings 
-    lspconfig.clangd.setup {
+    -- Override jsonls
+    lspconfig.jsonls.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
+
+    -- Override lemminx
+    lspconfig.lemminx.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
+
+    -- Override quick_lint_js
+    lspconfig.quick_lint_js.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
+
+
+    -- Override ts_ls
+    lspconfig.ts_ls.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
+    
+    -- Override yamlls
+    lspconfig.yamlls.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
+
+
+
+    -- Override clangd
+    lspconfig.clangd.setup({
+      on_attach = lsp_attach,
       cmd = {
         "clangd",
         "--enable-config",
@@ -88,26 +133,56 @@ return {
       },
       filetypes = { 'c', 'cpp', 'h', 'hpp', 'objc', 'objcpp', 'cuda' },
       init_options = {
-        clangdFileStatus = true
+        clangdFileStatus = true,
       },
+      root_dir = util.root_pattern(
+        ".clangd",
+        ".git",
+        "compile_commands.json",
+        "compile_flags.txt"
+      ),
       settings = {
         clangd = {
-          fallbackFlags = {
-            cpp = {"-std=c++20"},
-          }
+          fallbackFlags = {"-std=c++20"}
         }
       },
-      root_dir = util.root_pattern(".clangd", ".git", "compile_commands.json"),
       on_new_config = function(config, root)
         config.cmd_cwd = root
-        vim.notify("[clangd] on_new_config called for root: " .. config.cmd_cwd)
       end,
-    }
+    })
 
-    -- python settings
-    -- lspconfig.pyright.setup {
-    -- cmd = { "pyright-langserver", "--stdio" },
-    -- }
+    -- Override pyright
+    lspconfig.pyright.setup({
+      on_attach = lsp_attach,
+      cmd = {"pyright-langserver", "--stdio"},
+      settings = {},
+    })
+
+    -- Override rust_analyzer
+    lspconfig.rust_analyzer.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
+
+    -- Override gopls
+    lspconfig.gopls.setup({
+      on_attach = lsp_attach,
+      settings = {},
+    })
+
+    -- Diagnostic display configuration
+    vim.diagnostic.config({
+      virtual_text = {
+        spacing = 2,
+        prefix = "",
+      },
+      signs = false,
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true,
+    })
+
+
     -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
     local open_floating_preview = vim.lsp.util.open_floating_preview
     function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -115,6 +190,5 @@ return {
       opts.border = opts.border or "rounded" -- Set border to rounded
       return open_floating_preview(contents, syntax, opts, ...)
     end
-
-  end
+  end,
 }

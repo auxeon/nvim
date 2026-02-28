@@ -3,6 +3,18 @@ vim.g.mapleader = " "
 
 local keymap = vim.keymap
 
+-- mouse mode
+function toggleMouseMode()
+  if vim.o.mouse == "" then
+    vim.o.mouse = "a"
+    print("mouse enabled")
+  else
+    vim.o.mouse = ""
+    print("mouse disabled")
+  end
+end
+keymap.set("n", "<leader>m", function() toggleMouseMode() end, {desc = "toggle mouse mode"})
+
 -- General keymaps
 keymap.set("i", "jk", "<ESC>") -- exit insert mode with jk 
 keymap.set("i", "ii", "<ESC>") -- exit insert mode with ii

@@ -7,6 +7,9 @@ opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,term
 opt.relativenumber = true
 opt.number = true
 
+-- disable vim old syntax highlighting
+vim.g.syntax_on = false
+
 -- Tabs & Indentation
 opt.tabstop = 2
 opt.shiftwidth = 2

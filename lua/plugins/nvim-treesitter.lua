@@ -1,37 +1,33 @@
--- Code Tree Support / Syntax Highlighting
 return {
-    {
-        'nvim-treesitter/nvim-treesitter',
-        branch = 'main',
-        event = 'BufReadPost',
-        lazy = false,
-        build = ':TSUpdate',
-        dependencies = {
-            {
-                'nvim-treesitter/nvim-treesitter-textobjects',
-                branch = 'main',
-            },
-        },
-        opts = {
-            highlight = {
-                enable = true,                     -- enable Tree-sitter highlighting
-                additional_vim_regex_highlighting = false,  -- disable old Vim regex highlights
-            },
-            indent = { enable = true },            -- Tree-sitter based indentation
-            auto_install = true,                   -- auto-install missing parsers
-            ensure_installed = "all",              -- install all supported languages
-        },
-        config = function(_, opts)
-            -- on the main branc the config is singular with 's'
-            local configs = require("nvim-treesitter.config")
-            -- Force Tree-sitter to attach to all existing buffers
-            for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-                vim.treesitter.start(buf)
-            end
-            configs.setup(opts)
-            -- Turn off legacy Vim syntax to remove red { } in C99
-            vim.cmd([[syntax off]])
-        end,
-    },
+  "nvim-treesitter/nvim-treesitter",
+  -- DO NOT USE 'main'. It is currently unstable and breaks auto-attach.
+  branch = "master", 
+  build = ":TSUpdate",
+  -- We set lazy=false so it starts IMMEDIATELY without needing a manual start
+  lazy = false, 
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+  },
+  config = function()
+    local configs = require("nvim-treesitter.configs")
+
+    configs.setup({
+      -- List languages explicitly to force the initial download
+      ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "cpp", "python", "go", "rust", "javascript", "html", "json"},
+      auto_install = true,
+      highlight = {
+        enable = true,
+        disable = { "NvimTree" },
+        additional_vim_regex_highlighting = false,
+      },
+      indent = { enable = true },
+    })
+
+    -- This line makes Treesitter folding work automatically
+    vim.opt.foldmethod = "expr"
+    vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+    -- Ensure folds are open by default
+    vim.opt.foldlevel = 99
+  end,
 }
 

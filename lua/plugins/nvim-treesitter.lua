@@ -20,7 +20,7 @@ return {
       disable = { "NvimTree" },
       additional_vim_regex_highlighting = false,
     },
-    indent = { enable = true },
+    indent = { enable = false },
   },
   config = function(_, opts)
     -- THE "FIRST RUN" FIX:

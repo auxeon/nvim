@@ -15,6 +15,10 @@ function toggleMouseMode()
 end
 keymap.set("n", "<leader>m", function() toggleMouseMode() end, {desc = "toggle mouse mode"})
 
+-- Show Keymap 
+keymap.set("n", "<leader>km", ":vs ~/.config/nvim/lua/core/keymaps.lua<CR>")
+
+
 -- General keymaps
 keymap.set("i", "jk", "<ESC>") -- exit insert mode with jk 
 keymap.set("i", "ii", "<ESC>") -- exit insert mode with ii

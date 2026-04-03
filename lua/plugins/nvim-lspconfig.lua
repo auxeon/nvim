@@ -38,7 +38,7 @@ return {
       init_options = { clangdFileStatus = true },
       -- root_markers replaces root_dir in the new API for common patterns
       root_markers = { ".clangd", ".git", "compile_commands.json", "compile_flags.txt" },
---      settings = { clangd = { fallbackFlags = { "-std=c++20" } } },
+      settings = { clangd = { fallbackFlags = { "-std=c++23" } } },
     })
     vim.lsp.config('pyright', {
       cmd = { "pyright-langserver", "--stdio" },

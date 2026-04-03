@@ -33,10 +33,10 @@ keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
 keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width
 keymap.set("n", "<leader>sx", ":close<CR>") -- close split window
-keymap.set("n", "<leader>sj", "<C-w>-") -- make split window height shorter
-keymap.set("n", "<leader>sk", "<C-w>+") -- make split windows height taller
-keymap.set("n", "<leader>sl", "<C-w>>5") -- make split windows width bigger 
-keymap.set("n", "<leader>sh", "<C-w><5") -- make split windows width smaller
+keymap.set("n", "<leader>sjj", "<C-w>-") -- make split window height shorter
+keymap.set("n", "<leader>skk", "<C-w>+") -- make split windows height taller
+keymap.set("n", "<leader>sll", "<C-w>>5") -- make split windows width bigger 
+keymap.set("n", "<leader>shh", "<C-w><5") -- make split windows width smaller
 
 -- Tab management
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- open a new tab
@@ -120,19 +120,28 @@ keymap.set("n", "<leader>bc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input
 keymap.set("n", "<leader>bl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
 keymap.set("n", '<leader>br', "<cmd>lua require'dap'.clear_breakpoints()<cr>")
 keymap.set("n", '<leader>ba', '<cmd>Telescope dap list_breakpoints<cr>')
+
 keymap.set("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>")
+keymap.set("n", "<leader>dp", "<cmd>lua require'dap'.pause()<cr>")
 keymap.set("n", "<leader>dj", "<cmd>lua require'dap'.step_over()<cr>")
 keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.step_into()<cr>")
 keymap.set("n", "<leader>do", "<cmd>lua require'dap'.step_out()<cr>")
+keymap.set("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
+keymap.set("n", "<leader>dx", "<cmd>lua require'dap'.terminate()<cr>")
+
+keymap.set("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>")
+keymap.set("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
+keymap.set("n", "<leader>de", "<cmd>lua require'dapui'.eval()<cr>")
+keymap.set("v", "<leader>de", "<cmd>lua require'dapui'.eval()<cr>")
+
 keymap.set("n", '<leader>dd', function() require('dap').disconnect(); require('dapui').close(); end)
 keymap.set("n", '<leader>dt', function() require('dap').terminate(); require('dapui').close(); end)
-keymap.set("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
-keymap.set("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
 keymap.set("n", '<leader>di', function() require "dap.ui.widgets".hover() end)
 keymap.set("n", '<leader>d?', function() local widgets = require "dap.ui.widgets"; widgets.centered_float(widgets.scopes) end)
 keymap.set("n", '<leader>df', '<cmd>Telescope dap frames<cr>')
 keymap.set("n", '<leader>dh', '<cmd>Telescope dap commands<cr>')
-keymap.set("n", '<leader>de', function() require('telescope.builtin').diagnostics({default_text=":E:"}) end)
+
+keymap.set("n", '<leader>td', function() require('telescope.builtin').diagnostics({default_text=":E:"}) end)
 
 -- Terminal
 local useropts = {
